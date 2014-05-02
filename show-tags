@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+ENV['BUNDLE_GEMFILE'] = File.join(File.dirname(__FILE__), 'Gemfile')
+
+require 'rubygems'
+require 'bundler/setup'
+
+require 'taglib'
+
+puts 'Detecting MP3 files...'
+Dir.glob('*.mp3') do |file|
+  puts "File: #{file}:"
+  # puts 'Updating ID3 tags ...'
+  TagLib::FileRef.open(file) do |t|
+    unless t.null?
+      tags = t.tag
+      puts "  Artist: #{tags.artist}" if tags.artist
+      puts "  Title: #{tags.title}" if tags.title
+      puts "  Album: #{tags.album}" if tags.album
+    end
+  end
+
+  puts '*' * 20
+end
+
