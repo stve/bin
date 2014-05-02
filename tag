@@ -22,8 +22,8 @@ Dir.glob('*.mp3') do |file|
   # puts 'Updating ID3 tags ...'
   TagLib::FileRef.open(file) do |f|
     unless f.null?
-      f.tag.artist ||= artist.strip
-      f.tag.title ||= song.strip
+      f.tag.artist = artist.strip
+      f.tag.title = song.strip
       f.tag.genre ||= DEFAULT_GENRE
 
       # update tags
