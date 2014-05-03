@@ -43,7 +43,12 @@ Dir.glob('*.mp3') do |file|
     albumart.picture = File.open(artwork, 'rb') { |f| f.read }
 
     TagLib::MPEG::File.open(file) do |mp3_file|
+
       tag = mp3_file.id3v2_tag
+
+      # tag.remove_frame('APIC')
+      tag.frame_list('APIC').each { |f| tag.remove_frame(f) }
+
       tag.add_frame(albumart)
 
       ## save tags
