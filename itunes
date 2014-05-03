@@ -1,0 +1,32 @@
+#!/bin/sh
+
+#/usr/bin/env ruby
+
+# ENV['BUNDLE_GEMFILE'] = File.join(File.dirname(__FILE__), 'Gemfile')
+
+# require 'rubygems'
+# require 'bundler/setup'
+
+# require 'appscript'
+# require 'shellwords'
+
+# Dir.glob('*.mp3') do |file|
+#   puts file
+#   puts applescript       = "tell application \"iTunes\" to add POSIX file \"#{file}\""
+#   puts osascript_command = "osascript -e '#{applescript}'"
+#   # system(Shellwords.escape(osascript_command))
+#   system(osascript_command)
+# end
+
+current_dir=$PWD
+echo $current_dir
+
+for f in *.mp3; do
+  # echo "Processing $f file..";
+  echo "Adding $f"
+  fullpath="$current_dir/$f";
+
+  osascript <<EOF
+    tell application "iTunes" to add POSIX file "$fullpath"
+EOF
+done
