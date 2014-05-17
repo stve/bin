@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+ENV['BUNDLE_GEMFILE'] = File.join(File.dirname(__FILE__), 'Gemfile')
+
+require 'rubygems'
+require 'bundler/setup'
+
+require 'pygments.rb'
+require 'redcarpet'
+
+def markdown(text)
+  options = [:smart,]
+
+  # clear out yaml front matter
+  text.gsub!(/---(.*)---/m, '')
+
+  # Replace {% highlight lang [linenos] %}<data>{% endhighlight %} with colourised code.
+  text.gsub!(/\{\{( *)?"(.*?)"\}\}/, '\1\2')
+  text.gsub!(/^\{% highlight (.+?) (linenos)? ?%\}(.*?)^\{% endhighlight %\}/m) do |match|
+    data = Pygments.highlight($3, :lexer => $1).to_s
+    if $2
+      pre, data, post = data.split(/<.?pre>/)
+      data = data.split(/\n/)
+      data = data.each_with_index.map do |line, index|
+        "<span class='lineno'>#{index + 1}</span>#{line}\n"
+      end
+      data = "#{pre}<pre>#{data}</pre>#{post}"
+    end
+    data
+  end
+
+  renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  renderer.render(text)
+end
+
+puts markdown(ARGF.read)
