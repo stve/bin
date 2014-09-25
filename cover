@@ -1,0 +1,60 @@
+#!/usr/bin/env ruby
+
+ENV['BUNDLE_GEMFILE'] = File.join(File.dirname(__FILE__), 'Gemfile')
+
+require 'rubygems'
+require 'bundler/setup'
+
+require 'fileutils'
+require 'taglib'
+
+current_dir = Dir.pwd
+
+def cover_for?(dir)
+  image_path = nil
+
+  ['jpg', 'png'].each do |ext|
+    path = File.join(dir, "cover.#{ext}")
+    if File.exist?(path)
+      image_path = path
+      break
+    end
+  end
+
+  image_path
+end
+
+# rename .jpeg files to jpg
+Dir.glob('*.jpeg') { |file| FileUtils.mv file, "#{File.basename(file, '.jpeg')}.jpg" }
+
+
+# now that files have been converted to mp3's, update the ID3 tags
+puts 'Detecting MP3 files...'
+Dir.glob('*.mp3') do |file|
+  filename = File.basename(file, '.mp3')
+
+  if artwork = cover_for?(current_dir)
+
+    ## add album art image
+    albumart = TagLib::ID3v2::AttachedPictureFrame.new
+    albumart.mime_type = "image/jpg"
+    albumart.description = "Cover"
+    albumart.type = TagLib::ID3v2::AttachedPictureFrame::FrontCover
+    albumart.picture = File.open(artwork, 'rb') { |f| f.read }
+
+    TagLib::MPEG::File.open(file) do |mp3_file|
+
+      tag = mp3_file.id3v2_tag
+      tag.frame_list('APIC').each { |f| tag.remove_frame(f) }
+
+      tag.add_frame(albumart)
+
+      ## save tags
+      mp3_file.save
+    end
+
+    puts "Updated artwork for #{File.basename(file)}"
+    puts '*' * 20
+   end
+
+end
