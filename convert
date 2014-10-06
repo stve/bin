@@ -15,7 +15,7 @@ def convert_files(extension)
     name = File.basename(file, ".#{extension}")
 
     puts "Creating '#{name}.mp3' from '#{file}' using lame ..."
-    `lame -b 320 "#{file}" "#{name}.mp3"`
+    `lame -b 320 -h "#{file}" "#{name}.mp3"`
     FileUtils.mv file, File.expand_path('~/Desktop/Originals/'), :noop => false, :verbose => true
   end
 end
