@@ -8,7 +8,7 @@ require 'bundler/setup'
 require 'fileutils'
 require 'taglib'
 
-DEFAULT_GENRE = 'untagged'
+DEFAULT_GENRE = nil # 'untagged'
 
 puts 'Detecting MP3 files...'
 Dir.glob('*.mp3') do |file|
