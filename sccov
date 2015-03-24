@@ -38,6 +38,8 @@ begin
   end
 
   artwork_filename = "#{track.user.username} - #{track.title}.jpg"
+  artwork_filename.gsub!(/\//, '-') # escape slashes
+  artwork_filename.gsub!(/\A\./,'') # remove leading periods
   File.open(File.join(target_dir, artwork_filename), "wb") do |saved_file|
     open(artwork_url.gsub('large','t500x500'), "rb") do |read_file|
       saved_file.write(read_file.read)
