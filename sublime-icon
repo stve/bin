@@ -1,7 +1,0 @@
-#!/bin/sh
-
-sublime_dir="/Applications/Sublime Text 2.app/Contents/Resources"
-dropbox_dir="$HOME/Dropbox/Computer/Mac/Apps"
-
-mv "$sublime_dir/Sublime Text 2.icns" "$sublime_dir/Sublime Text 2.icns.bak" > /dev/null 2>&1
-cp "$dropbox_dir/Sublime Text 2.icns" "$sublime_dir/Sublime Text 2.icns"

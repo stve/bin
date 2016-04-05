@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Mercilessly nuke every Nokogiri version
-gem uninstall nokogiri --all --force --executables
-# These arguments will be passed to `gem install nokogiri`
-bundle config build.nokogiri -- --with-xml2-include=`brew --prefix libxml2`/include/libxml2 --with-xml2-lib=`brew --prefix libxml2`/lib --with-xslt-dir=`brew --prefix libxslt`
-# Reinstall
-bundle install
