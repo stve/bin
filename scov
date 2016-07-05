@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+ENV['BUNDLE_GEMFILE'] = File.join(File.dirname(__FILE__), 'Gemfile')
+
+require 'open-uri'
+require 'rubygems'
+require 'bundler/setup'
+
+def usage
+  puts 'Please pass a url to check'
+  puts
+  puts "usage: scov https://soundcloud.com/artist/track"
+end
+
+if ARGV.size > 0
+  url = ARGV.pop
+else
+ usage
+ exit
+end
+
+require 'opengraph'
+
+target_dir = File.expand_path("~/Downloads")
+og = OpenGraph.fetch(url)
+
+artwork_filename = og.title + ".jpg"
+artwork_url = og.image
+
+File.open(File.join(target_dir, artwork_filename), "wb") do |saved_file|
+  open(artwork_url, "rb") do |read_file|
+    saved_file.write(read_file.read)
+  end
+end
+
+puts "Downloaded #{artwork_filename} to #{target_dir}"

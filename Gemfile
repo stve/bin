@@ -4,6 +4,7 @@ group :mp3 do
   gem 'rb-appscript'
   gem 'taglib-ruby', :require => 'taglib'
   gem 'soundcloud'
+  gem 'opengraph'
   gem 'dotenv'
 end
 
