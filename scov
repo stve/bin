@@ -24,7 +24,7 @@ require 'opengraph'
 target_dir = File.expand_path("~/Downloads")
 og = OpenGraph.fetch(url)
 
-artwork_filename = og.title + ".jpg"
+artwork_filename = og.title.gsub('/', '.') + ".jpg"
 artwork_url = og.image
 
 File.open(File.join(target_dir, artwork_filename), "wb") do |saved_file|
