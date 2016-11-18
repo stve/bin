@@ -10,41 +10,24 @@ GEM
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    json (1.8.1)
-    mime-types (1.25.1)
+    json (1.8.3)
     mimemagic (0.2.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nokogiri (1.4.7)
-    opengraph (0.0.4)
-      hashie
-      nokogiri (~> 1.4.0)
-      rest-client (~> 1.6.0)
-    posix-spawn (0.3.9)
-    pygments.rb (0.6.0)
-      posix-spawn (~> 0.3.6)
-      yajl-ruby (~> 1.1.0)
-    rb-appscript (0.6.1)
-    redcarpet (3.2.0)
-    rest-client (1.6.9)
-      mime-types (~> 1.16)
+    rb-scpt (1.0.1)
     soundcloud (0.3.2)
       hashie (~> 2.0)
       httmultiparty (~> 0.3.0)
     taglib-ruby (0.7.0)
-    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   dotenv
-  opengraph
-  pygments.rb
-  rb-appscript
-  redcarpet
+  rb-scpt
   soundcloud
   taglib-ruby
 
 BUNDLED WITH
-   1.10.6
+   1.13.6

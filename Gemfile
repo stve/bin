@@ -1,14 +1,8 @@
 source 'https://rubygems.org'
 
 group :mp3 do
-  gem 'rb-appscript'
+  gem 'rb-scpt'
   gem 'taglib-ruby', :require => 'taglib'
   gem 'soundcloud'
-  gem 'opengraph'
   gem 'dotenv'
-end
-
-group :markdown do
-  gem 'pygments.rb'
-  gem 'redcarpet'
 end
